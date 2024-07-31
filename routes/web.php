@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\EligibilityController;
+use App\Http\Controllers\PersonalityTestController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,9 +22,14 @@ Route::get('/login', function () {
     return view('auth.login');
 })->name('login');
 
-Route::get('/test-kepribadian', function () {
-    return view('test-kepribadian.test');
-})->name('test-kepribadian');
+Route::get('/register', function () {
+    return view('auth.register');
+})->name('register');
+
+Route::get('/tipe-kepribadian', [PersonalityTestController::class, 'showTipe'])->name('tipe-kepribadian');
+Route::get('/test-kepribadian', [PersonalityTestController::class, 'index'])->name('test-kepribadian');
+Route::post('/submit-test', [PersonalityTestController::class, 'submitTest'])->name('submit.personality.test');
+
 
 Route::get('/hasil-test-kepribadian', function () {
     return view('test-kepribadian.hasil');
@@ -32,6 +39,5 @@ Route::get('/cek-eligibilitas', function () {
     return view('cek-eligibilitas.index');
 })->name('cek-eligibilitas');
 
-Route::get('/cek-eligibilitas-input', function () {
-    return view('cek-eligibilitas.input');
-})->name('start.input');
+Route::get('/cek-eligibilitas-input', [EligibilityController::class, 'input'])->name('start.input');
+Route::post('/cek-eligibilitas/hasil', [EligibilityController::class, 'checkEligibility'])->name('cek-eligibilitas.hasil');

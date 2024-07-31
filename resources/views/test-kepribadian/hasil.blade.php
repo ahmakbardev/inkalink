@@ -29,10 +29,14 @@
                 <div class="md:w-1/2">
                     <h3 class="text-2xl font-semibold text-gray-700">Rekomendasi dari Inkalink</h3>
                     <p class="text-gray-600 mt-4">
-                        Berdasarkan rekomendasi dari para ahli Inkalink, Anda cocok untuk bidang seperti Teknik Mesin,
-                        Ilmu Komputer, Teknologi Otomotif, Perikanan, Pertanian, dan Geofisika.
+                        Berdasarkan rekomendasi dari para ahli Inkalink, berikut adalah hasil kepribadian Anda:
                     </p>
-                    <a href="#" class="mt-4 inline-block text-primary-500 hover:text-primary-600">Lihat informasi
+                    <ul class="mt-4 text-gray-600">
+                        <li><strong>Code:</strong> {{ $result->code }}</li>
+                        <li><strong>Description:</strong> {{ $result->description }}</li>
+                    </ul>
+                    <a href="{{ route('tipe-kepribadian', ['categories' => $topCategories]) }}"
+                        class="mt-4 inline-block text-primary-500 hover:text-primary-600">Lihat informasi
                         jenis kepribadian lainnya di sini</a>
                 </div>
                 <div class="md:w-1/2 flex justify-center mt-6 md:mt-0">
@@ -54,15 +58,15 @@
         document.addEventListener('DOMContentLoaded', function() {
             var ctx = document.getElementById('personalityChart').getContext('2d');
             var personalityChart = new Chart(ctx, {
-                type: 'line',
+                type: 'bar',
                 data: {
-                    labels: ['Merah', 'Biru', 'Hijau', 'Kuning'],
+                    labels: {!! json_encode(array_keys($categoryCounts)) !!},
                     datasets: [{
-                        label: 'Preferensi Warna',
-                        data: [12, 19, 3, 5],
-                        fill: false,
-                        borderColor: 'rgb(75, 192, 192)',
-                        tension: 0.1
+                        label: 'Jumlah Jawaban "Ya"',
+                        data: {!! json_encode(array_values($categoryCounts)) !!},
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
                     }]
                 },
                 options: {
