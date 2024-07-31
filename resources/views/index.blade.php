@@ -162,10 +162,10 @@
                     </p>
                 </div>
                 <div class="items-center px-4 py-3">
-                    <button
+                    <a href="{{ route('start.input') }}"
                         class="px-4 py-2 bg-primary-500 text-white text-base font-medium rounded-md w-full shadow-sm transition-all ease-in-out hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500">
                         Cek Eligibilitas
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>
