@@ -41,3 +41,7 @@ Route::get('/cek-eligibilitas', function () {
 
 Route::get('/cek-eligibilitas-input', [EligibilityController::class, 'input'])->name('start.input');
 Route::post('/cek-eligibilitas/hasil', [EligibilityController::class, 'checkEligibility'])->name('cek-eligibilitas.hasil');
+
+Route::get('/jurnal-karir', function () {
+    return view('jurnal.index');
+})->name('jurnal-karir');

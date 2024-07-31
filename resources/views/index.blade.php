@@ -48,8 +48,8 @@
                 <p class="mt-4">Perencanaan karier sangat berpengaruh dalam keberhasilan masa depan kamu kawan, karena
                     dengan perencanaan
                     karier kamu dapat menentukan kemanakan kamu akan menempuh masa depanmu dengan baik.</p>
-                <button
-                    class="px-8 py-2 rounded-lg bg-primary-700 text-white hover:bg-primary-600 transition-all ease-in-out w-fit mt-3">Rencanakan</button>
+                <a href="{{ route('jurnal-karir') }}"
+                    class="px-8 py-2 rounded-lg bg-primary-700 text-white hover:bg-primary-600 transition-all ease-in-out w-fit mt-3">Rencanakan</a>
             </div>
             <img src="{{ asset('assets/images/perencanaan.png') }}" class="ml-auto order-1 md:order-2" alt="">
         </div>
@@ -190,10 +190,10 @@
                         dan skill yang kamu miliki.</p>
                 </div>
                 <div class="items-center px-4 py-3">
-                    <button
+                    <a href="{{ route('jurnal-karir') }}"
                         class="px-4 py-2 bg-primary-500 text-white text-base font-medium rounded-md w-full shadow-sm transition-all ease-in-out hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500">
                         Buka Jurnal
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>
