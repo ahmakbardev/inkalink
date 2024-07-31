@@ -66,9 +66,9 @@
                 <p class="mt-4">Hidupmu adalah tanggung jawabmu, jangan jadikan orang lain sebagai tumpuan dan kunci dalam
                     meraih kesuksesan. Jadilah dirimu sendiri, pahami dirimu dengan melakukan test kepribadian untuk
                     mengetahui kesesuaian dirimu dengan linkunganmu.</p>
-                <button
+                <a href="{{ route('tipe-kepribadian') }}"
                     class="px-8 py-2 rounded-lg bg-primary-700 text-white hover:bg-primary-600 transition-all ease-in-out w-fit mt-3">Lihat
-                    Tipe</button>
+                    Tipe</a>
             </div>
         </div>
     </div>
@@ -83,8 +83,8 @@
                 <h1 class="text-3xl font-semibold">#Perguruan Tinggi</h1>
                 <p class="mt-4">Kamu bingung memilih perguruan tinggi yang sesuai dengan nilai rapportmu??? Yukk segera
                     cari tau jurusan dan perguruan tinggi yang sesuai dengan hasil belajarmu.</p>
-                <button
-                    class="px-8 py-2 rounded-lg bg-primary-700 text-white hover:bg-primary-600 transition-all ease-in-out w-fit mt-3">Lihat..</button>
+                <a href="{{ route('start.input') }}"
+                    class="px-8 py-2 rounded-lg bg-primary-700 text-white hover:bg-primary-600 transition-all ease-in-out w-fit mt-3">Lihat..</a>
             </div>
         </div>
     </div>
