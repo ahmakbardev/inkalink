@@ -607,6 +607,9 @@ video {
 .right-5 {
   right: 1.25rem;
 }
+.right-0 {
+  right: 0px;
+}
 .z-0 {
   z-index: 0;
 }
@@ -808,6 +811,9 @@ video {
 }
 .w-3 {
   width: 0.75rem;
+}
+.w-48 {
+  width: 12rem;
 }
 .max-w-2xl {
   max-width: 42rem;

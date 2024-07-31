@@ -12,23 +12,63 @@
         </button>
     </div>
     <ul class="hidden sm:flex gap-3 items-center">
-        <li class="hover:text-slate-300 cursor-pointer transition-all ease-in-out">Beranda</li>
-        <li class="hover:text-slate-300 cursor-pointer transition-all ease-in-out">Tentang</li>
+        <li class="hover:text-slate-300 cursor-pointer transition-all ease-in-out"><a href="/">Beranda</a></li>
+        <li class="hover:text-slate-300 cursor-pointer transition-all ease-in-out"><a href="#">Tentang</a></li>
     </ul>
     <div class="hidden sm:flex gap-3 items-center">
-        <a href="{{ route('login') }}"
-            class="px-8 py-2 rounded-lg bg-primary-700 text-white hover:bg-primary-600 transition-all ease-in-out">Login</a>
+        @auth
+            <div class="relative">
+                <button id="user-menu-btn" class="flex items-center gap-2 focus:outline-none">
+                    <i data-feather="user" class="w-6 h-6 text-gray-600"></i>
+                    <span>{{ Auth::user()->name }}</span>
+                    <i data-feather="chevron-down" class="w-4 h-4 text-gray-600"></i>
+                </button>
+                <ul id="user-menu" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-2 z-50">
+                    <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                        <a href="#">Profile</a>
+                    </li>
+                    <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                        <a href="{{ route('logout') }}"
+                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            Logout
+                        </a>
+                    </li>
+                </ul>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
+                    @csrf
+                </form>
+            </div>
+        @else
+            <a href="{{ route('login') }}"
+                class="px-8 py-2 rounded-lg bg-primary-700 text-white hover:bg-primary-600 transition-all ease-in-out">Login</a>
+        @endauth
     </div>
     <ul
         class="hidden mobile-menu flex flex-col items-center gap-3 absolute top-20 left-0 w-full bg-white shadow-md z-40 py-3 transform transition-transform duration-300 ease-in-out translate-y-[-10px] opacity-0">
-        <li class="w-full text-center py-2 hover:bg-gray-100">Beranda</li>
-        <li class="w-full text-center py-2 hover:bg-gray-100">Tentang</li>
-        <li class="w-full text-center py-2">
-            <a href="{{ route('login') }}"
-                class="px-8 py-2 w-full text-center rounded-lg bg-primary-700 text-white hover:bg-primary-600 transition-all ease-in-out">Login</a>
-        </li>
+        <li class="w-full text-center py-2 hover:bg-gray-100"><a href="/">Beranda</a></li>
+        <li class="w-full text-center py-2 hover:bg-gray-100"><a href="#">Tentang</a></li>
+        @auth
+            <li class="w-full text-center py-2 hover:bg-gray-100">
+                <a href="#">Profile</a>
+            </li>
+            <li class="w-full text-center py-2 hover:bg-gray-100">
+                <a href="{{ route('logout') }}"
+                    onclick="event.preventDefault(); document.getElementById('logout-form-mobile').submit();">
+                    Logout
+                </a>
+            </li>
+            <form id="logout-form-mobile" action="{{ route('logout') }}" method="POST" class="hidden">
+                @csrf
+            </form>
+        @else
+            <li class="w-full text-center py-2">
+                <a href="{{ route('login') }}"
+                    class="px-8 py-2 w-full text-center rounded-lg bg-primary-700 text-white hover:bg-primary-600 transition-all ease-in-out">Login</a>
+            </li>
+        @endauth
     </ul>
 </div>
+
 <script>
     document.getElementById('menu-btn').addEventListener('click', function() {
         var menu = document.querySelector('.mobile-menu');
@@ -44,6 +84,15 @@
             setTimeout(() => {
                 menu.classList.add('hidden');
             }, 300); // Match the duration of the transition
+        }
+    });
+
+    document.getElementById('user-menu-btn').addEventListener('click', function() {
+        var menu = document.getElementById('user-menu');
+        if (menu.classList.contains('hidden')) {
+            menu.classList.remove('hidden');
+        } else {
+            menu.classList.add('hidden');
         }
     });
 </script>
