@@ -34,6 +34,33 @@
             </div>
         </div>
 
+        <!-- Additional Content -->
+        <div class="w-full max-w-4xl bg-white rounded-lg shadow-md p-8">
+            <div class="grid grid-cols-1 gap-3">
+                <div class="bg-green-100 p-4 rounded-lg">
+                    <div class="flex items-center">
+                        <img src="{{ asset('assets/images/icon/1.png') }}" alt="Icon 1" class="h-12 w-12 object-contain rounded-full mr-4">
+                        <p class="text-gray-700">Jadilah diri Anda sepenuhnya dan beri jawaban sejujurnya untuk mengetahui
+                            tipe kepribadian Anda.</p>
+                    </div>
+                </div>
+                <div class="bg-yellow-100 p-4 rounded-lg">
+                    <div class="flex items-center">
+                        <img src="{{ asset('assets/images/icon/2.png') }}" alt="Icon 2" class="h-12 w-12 object-contain rounded-full mr-4">
+                        <p class="text-gray-700">Pelajari cara tipe kepribadian Anda memengaruhi banyak aspek dalam hidup
+                            Anda.</p>
+                    </div>
+                </div>
+                <div class="bg-purple-100 p-4 rounded-lg">
+                    <div class="flex items-center">
+                        <img src="{{ asset('assets/images/icon/3.png') }}" alt="Icon 3" class="h-12 w-12 object-contain rounded-full mr-4">
+                        <p class="text-gray-700">Berkembanglah menjadi pribadi yang Anda inginkan dengan berbagai materi
+                            premium opsional kami.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Question Section -->
         <div class="w-full max-w-4xl bg-white rounded-lg shadow-md p-8 mt-10">
             <h2 class="text-xl font-semibold text-gray-700">Personality Test</h2>
@@ -131,7 +158,6 @@
     <!-- Include Lottie library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.11/lottie.min.js"></script>
 
-
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             openModal('welcomeModal');
@@ -140,7 +166,7 @@
             // Initialize Lottie animation
             lottie.loadAnimation({
                 container: document.getElementById(
-                    'lottieAnimation'), // the dom element that will contain the animation
+                'lottieAnimation'), // the dom element that will contain the animation
                 renderer: 'svg',
                 loop: true,
                 autoplay: true,
@@ -156,9 +182,8 @@
                         `category-${currentCategoryId + 1}`);
 
                     const allAnswered = [...currentCategory.querySelectorAll('input[type="radio"]')]
-                        .filter(input => input.checked)
-                        .length === currentCategory.querySelectorAll('input[type="radio"]').length /
-                        2;
+                        .filter(input => input.checked).length === currentCategory.querySelectorAll(
+                            'input[type="radio"]').length / 2;
 
                     if (!allAnswered) {
                         openModal('warningModal');
@@ -232,9 +257,8 @@
 
             const allAnswered = [...document.querySelector(`#category-${currentCategoryId}`).querySelectorAll(
                     'input[type="radio"]')]
-                .filter(input => input.checked)
-                .length === document.querySelector(`#category-${currentCategoryId}`).querySelectorAll('input[type="radio"]')
-                .length / 2;
+                .filter(input => input.checked).length === document.querySelector(`#category-${currentCategoryId}`)
+                .querySelectorAll('input[type="radio"]').length / 2;
 
             if (allAnswered) {
                 openModal('confirmationModal');
