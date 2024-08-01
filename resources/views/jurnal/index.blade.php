@@ -27,7 +27,7 @@
         </div>
     </div>
 
-    <div class="min-h-screen bg-gray-50 py-10">
+    <div class="min-h-screen bg-[#2460C2]  py-10">
         <div class="container mx-auto px-4">
             <!-- Skill and Goal Detail Section -->
             <div class="flex flex-col md:flex-row gap-6 mb-10">
