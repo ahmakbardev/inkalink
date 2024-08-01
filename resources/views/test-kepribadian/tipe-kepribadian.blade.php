@@ -25,7 +25,7 @@
                             <div class="swiper-slide">
                                 <div class="p-6 rounded-lg shadow-lg bg-white text-center">
                                     @if ($type->image)
-                                        <img src="{{ asset($type->image) }}" alt="{{ $type->name }}" class="mx-auto mb-4">
+                                        <img src="{{ asset( 'storage/'.$type->image) }}" alt="{{ $type->name }}" class="mx-auto mb-4">
                                     @endif
                                     <h4 class="text-pink-500 font-semibold mb-2">{{ $type->name }}</h4>
                                     <p class="text-gray-600 mb-4">
