@@ -1,6 +1,10 @@
 @extends('layouts.layout')
 
 @section('content')
+    <div class="fixed top-24 right-10 z-10 bg-white p-4 rounded-full">
+        <!-- Lottie animation container -->
+        <div id="lottieAnimation" class="w-48 h-48 z-10"></div>
+    </div>
     <div
         class="w-full flex flex-col justify-center items-center py-16 px-8 sm:py-20 sm:px-32 bg-[#2460C2] relative overflow-hidden">
         <!-- Modal -->
@@ -124,10 +128,24 @@
         </div>
     </div>
 
+    <!-- Include Lottie library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.11/lottie.min.js"></script>
+
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             openModal('welcomeModal');
             showCategory(1);
+
+            // Initialize Lottie animation
+            lottie.loadAnimation({
+                container: document.getElementById(
+                    'lottieAnimation'), // the dom element that will contain the animation
+                renderer: 'svg',
+                loop: true,
+                autoplay: true,
+                path: '{{ asset('assets/lottie/profile.json') }}' // the path to the animation json
+            });
 
             // Next Button Functionality
             document.querySelectorAll('.nextBtn').forEach(button => {

@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EligibilityController;
+use App\Http\Controllers\JournalController;
 use App\Http\Controllers\PersonalityTestController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -44,7 +46,11 @@ Route::middleware(['auth.middleware'])->group(function () {
     Route::get('/cek-eligibilitas-input', [EligibilityController::class, 'input'])->name('start.input');
     Route::post('/cek-eligibilitas/hasil', [EligibilityController::class, 'checkEligibility'])->name('cek-eligibilitas.hasil');
 
-    Route::get('/jurnal-karir', function () {
-        return view('jurnal.index');
-    })->name('jurnal-karir');
+    Route::get('/jurnal-karir', [JournalController::class, 'index'])->name('jurnal-karir');
+    Route::post('/jurnal-karir', [JournalController::class, 'store'])->name('jurnal.store');
+    Route::delete('/jurnal/{id}', [JournalController::class, 'destroy'])->name('jurnal.destroy');
+    Route::patch('/jurnal/{id}/done', [JournalController::class, 'markAsDone'])->name('jurnal.markAsDone');
+
+    Route::get('profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('profile', [ProfileController::class, 'update'])->name('profile.update');
 });

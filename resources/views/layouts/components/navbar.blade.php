@@ -19,13 +19,13 @@
         @auth
             <div class="relative">
                 <button id="user-menu-btn" class="flex items-center gap-2 focus:outline-none">
-                    <i data-feather="user" class="w-6 h-6 text-gray-600"></i>
+                    <img src="{{ asset('storage/'. Auth::user()->profile_photo) }}" class="w-6 h-6 rounded-full object-cover transition-all ease-in-out" alt="">
                     <span>{{ Auth::user()->name }}</span>
                     <i data-feather="chevron-down" class="w-4 h-4 text-gray-600"></i>
                 </button>
                 <ul id="user-menu" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-2 z-50">
                     <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                        <a href="#">Profile</a>
+                        <a href="{{ route('profile.edit') }}">Profile</a>
                     </li>
                     <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer">
                         <a href="{{ route('logout') }}"
@@ -49,7 +49,7 @@
         <li class="w-full text-center py-2 hover:bg-gray-100"><a href="#">Tentang</a></li>
         @auth
             <li class="w-full text-center py-2 hover:bg-gray-100">
-                <a href="#">Profile</a>
+                <a href="{{ route('profile.edit') }}">Profile</a>
             </li>
             <li class="w-full text-center py-2 hover:bg-gray-100">
                 <a href="{{ route('logout') }}"

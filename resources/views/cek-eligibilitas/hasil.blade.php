@@ -11,7 +11,7 @@
             @if ($eligibleUniversities->isEmpty())
                 <p class="mt-6 text-red-500">Maaf, tidak ada universitas yang cocok dengan rata-rata nilai Anda.</p>
             @else
-                <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4 max-h-96 overflow-y-auto">
                     @foreach ($eligibleUniversities as $university)
                         <div class="p-4 border rounded-lg bg-gray-50">
                             <h4 class="font-semibold text-lg">{{ $university->nama_universitas }}</h4>
@@ -20,9 +20,9 @@
 
                             @if ($university->gambar_rnm)
                                 <div class="mt-4">
-                                    <img src="{{ asset('storage/' . $university->gambar_rnm) }}"
-                                        alt="Gambar RNM" class="w-full rounded-lg shadow-lg cursor-pointer"
-                                        onclick="showModal('{{ asset('storage/' . $university->gambar_rnm) }}')">
+                                    <img src="{{ asset( 'storage/'. $university->gambar_rnm) }}" alt="Gambar RNM"
+                                        class="w-full rounded-lg shadow-lg cursor-pointer"
+                                        onclick="showModal('{{ asset( 'storage/'. $university->gambar_rnm) }}')">
                                 </div>
                             @endif
 

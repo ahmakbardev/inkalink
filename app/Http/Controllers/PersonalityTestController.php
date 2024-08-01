@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class PersonalityTestController extends Controller
@@ -81,6 +82,17 @@ class PersonalityTestController extends Controller
         foreach ($categoryCounts as $id => $count) {
             $categoryCountsWithNames[$categoryNames[$id]] = $count;
         }
+
+        // Save or update the test result in the database
+        DB::table('personality_test_results')->updateOrInsert(
+            ['user_id' => Auth::id()],
+            [
+                'category_counts' => json_encode($categoryCountsWithNames),
+                'top_categories' => json_encode($topCategories),
+                'updated_at' => now(),
+                'created_at' => now(),
+            ]
+        );
 
         // Return the result and categoryCounts to the view
         return view('test-kepribadian.hasil', [

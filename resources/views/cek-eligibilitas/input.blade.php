@@ -35,11 +35,48 @@
                 </div>
             </div>
         </div>
+
+        <!-- Modal -->
+        <div id="welcomeModal"
+            class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center transition-opacity duration-500 opacity-0">
+            <div
+                class="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg transform scale-90 transition-transform duration-500">
+                <button onclick="closeModal()" class="absolute top-3 right-3 text-gray-500 hover:text-gray-700">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                        </path>
+                    </svg>
+                </button>
+                <div class="text-center">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900">Panduan Input Nilai</h3>
+                    <div class="mt-2 px-7 py-3">
+                        <p class="text-sm text-gray-500">Lakukan input nilai untuk mengetahui peluang perguruan tinggi
+                            berdasarkan nilai akademik kamu. Isikan nilai sesuai dengan nilai raport kamu.</p>
+                        <p class="text-sm text-gray-500">Input nilai dapat dilakukan secara mandiri namun tetap dalam
+                            pengawasan guru BK.</p>
+                        <p class="text-sm text-gray-500">Tekan tombol "buat" untuk memulai input data nilai kamu.</p>
+                    </div>
+                    <div class="mt-4">
+                        <div id="lottie-animation" class="mb-4"></div>
+                        <button onclick="closeModal()"
+                            class="px-4 py-2 bg-primary-500 text-white text-base font-medium rounded-md shadow-sm hover:bg-primary-700 transition-all ease-in-out">
+                            Mulai
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.11/lottie.min.js"></script>
+
     <script>
         $(document).ready(function() {
+            // Open modal on page load
+            openModal();
+
             let semesterCount = 0;
 
             function addSemester() {
@@ -49,11 +86,11 @@
                         <h4 class="text-lg font-semibold mb-3">Semester ${semesterCount}</h4>
                         <div class="grid grid-cols-3 gap-4">
                             ${['Bahasa Indonesia', 'Matematika', 'Bahasa Inggris', 'Sejarah Indonesia', 'Seni Budaya', 'Kimia', 'Biologi', 'Fisika', 'PAI', 'Prakarya dan KWU'].map(subject => `
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-700">${subject}</label>
-                                        <input type="number" name="grades[${semesterCount}][${subject}]" class="grade-input mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="Nilai" oninput="validateInput(this)">
-                                    </div>
-                                `).join('')}
+                                            <div>
+                                                <label class="block text-sm font-medium text-gray-700">${subject}</label>
+                                                <input type="number" name="grades[${semesterCount}][${subject}]" class="grade-input mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="Nilai" oninput="validateInput(this)">
+                                            </div>
+                                        `).join('')}
                         </div>
                     </div>
                 `;
@@ -96,6 +133,35 @@
 
             // Initially load one semester
             addSemester();
+
+            // Lottie Animation
+            lottie.loadAnimation({
+                container: document.getElementById('lottie-animation'),
+                renderer: 'svg',
+                loop: true,
+                autoplay: true,
+                path: '{{ asset('assets/lottie/school.json') }}' // Change to your Lottie JSON file path
+            });
         });
+
+        function openModal() {
+            const modal = document.getElementById('welcomeModal');
+            modal.style.opacity = 1;
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.querySelector('.transform').classList.remove('scale-90');
+            }, 10);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('welcomeModal');
+            modal.querySelector('.transform').classList.add('scale-90');
+            setTimeout(() => {
+                modal.style.opacity = 0;
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                }, 500);
+            }, 300);
+        }
     </script>
 @endsection

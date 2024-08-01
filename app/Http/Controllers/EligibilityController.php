@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class EligibilityController extends Controller
@@ -34,6 +35,17 @@ class EligibilityController extends Controller
         $eligibleUniversities = DB::table('universities')
             ->where('nilai_rnm', '<=', $overallAverage)
             ->get();
+
+        // Save or update the eligibility result in the database
+        DB::table('eligibility_results')->updateOrInsert(
+            ['user_id' => Auth::id()],
+            [
+                'grades' => json_encode($grades),
+                'overall_average' => $overallAverage,
+                'updated_at' => now(),
+                'created_at' => now(),
+            ]
+        );
 
         return view('cek-eligibilitas.hasil', [
             'overallAverage' => $overallAverage,
