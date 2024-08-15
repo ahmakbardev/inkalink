@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EligibilityController;
+use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\JournalController;
 use App\Http\Controllers\PersonalityTestController;
 use App\Http\Controllers\ProfileController;
@@ -30,6 +31,11 @@ Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('
 Route::post('/register', [AuthController::class, 'register']);
 
 Route::get('/tipe-kepribadian', [PersonalityTestController::class, 'showTipe'])->name('tipe-kepribadian');
+Route::get('/search-univ', [GeneralController::class, 'searchUniv'])->name('search.univ');
+Route::get('/tentang', function () {
+    return view('about');
+})->name('tentang');
+
 
 Route::middleware(['auth.middleware'])->group(function () {
     Route::get('/test-kepribadian', [PersonalityTestController::class, 'index'])->name('test-kepribadian');
