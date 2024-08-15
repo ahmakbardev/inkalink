@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
 
 class AuthController extends Controller
 {
@@ -60,5 +61,29 @@ class AuthController extends Controller
         Auth::login($user);
 
         return redirect('/');
+    }
+
+    public function showResetPasswordForm()
+    {
+        return view('auth.reset-password');
+    }
+
+    public function resetPassword(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email|exists:users,email',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        $user = User::where('email', $request->email)->first();
+
+        if ($user) {
+            $user->password = Hash::make($request->password);
+            $user->save();
+
+            return redirect()->route('login')->with('status', 'Password successfully updated!');
+        }
+
+        return back()->withErrors(['email' => 'Email not found.']);
     }
 }

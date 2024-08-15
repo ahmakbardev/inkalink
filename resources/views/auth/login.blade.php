@@ -28,6 +28,11 @@
                                 class="absolute top-1/2 right-3 -translate-y-1/2 w-5 cursor-pointer"
                                 style="display: none;"></i>
                         </div>
+                        <div class="mt-2 text-right">
+                            <a href="{{ route('password.request') }}" class="text-sm text-indigo-600 hover:text-indigo-500">
+                                Lupa Password?
+                            </a>
+                        </div>
                     </div>
 
                     <div class="flex items-center justify-end mb-6">

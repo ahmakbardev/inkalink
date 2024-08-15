@@ -26,6 +26,8 @@ Route::get('/', function () {
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('reset-password', [AuthController::class, 'showResetPasswordForm'])->name('password.request');
+Route::post('reset-password', [AuthController::class, 'resetPassword'])->name('password.update');
 
 Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);
