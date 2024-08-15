@@ -40,7 +40,7 @@
         <div id="welcomeModal"
             class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center transition-opacity duration-500 opacity-0">
             <div
-                class="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg transform scale-90 transition-transform duration-500">
+                class="bg-white p-8 rounded-lg shadow-lg w-full max-w-2xl transform scale-90 transition-transform duration-500">
                 <button onclick="closeModal()" class="absolute top-3 right-3 text-gray-500 hover:text-gray-700">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg">
@@ -58,7 +58,7 @@
                         <p class="text-sm text-gray-500">Tekan tombol "buat" untuk memulai input data nilai kamu.</p>
                     </div>
                     <div class="mt-4">
-                        <div id="lottie-animation" class="mb-4"></div>
+                        <div id="lottie-animation" class="mb-4 h-52 object-contain"></div>
                         <button onclick="closeModal()"
                             class="px-4 py-2 bg-primary-500 text-white text-base font-medium rounded-md shadow-sm hover:bg-primary-700 transition-all ease-in-out">
                             Mulai

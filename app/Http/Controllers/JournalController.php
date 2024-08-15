@@ -31,7 +31,9 @@ class JournalController extends Controller
         $request->validate([
             'type' => 'required|string|in:skill,goal,todo',
             'content' => 'required|string',
-            'date' => 'nullable|date'
+            'date' => 'nullable|date',
+            'skill_id' => 'nullable|exists:journal_entries,id',
+            'goal_id' => 'nullable|exists:journal_entries,id',
         ]);
 
         $entry = JournalEntry::create([
@@ -39,10 +41,13 @@ class JournalController extends Controller
             'type' => $request->type,
             'content' => $request->content,
             'date' => $request->date,
+            'skill_id' => $request->skill_id,
+            'goal_id' => $request->goal_id,
         ]);
 
         return response()->json(['message' => 'Entry added successfully!', 'id' => $entry->id]);
     }
+
 
     public function destroy($id)
     {

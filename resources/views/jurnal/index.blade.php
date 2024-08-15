@@ -1,34 +1,52 @@
 @extends('layouts.layout')
 
 @section('content')
-    <!-- Guidance Modal -->
-    <div id="guidanceModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 z-10 flex items-center justify-center hidden">
-        <div class="bg-white p-6 rounded-lg shadow-md w-full max-w-xl transform scale-95 transition-transform duration-300">
-            <h3 class="text-lg font-semibold mb-4">Panduan Mengisi Jurnal</h3>
-            <div class="space-y-4">
-                <p>Terdapat tiga template untuk merencanakan kariermu.</p>
-                <ol class="list-decimal list-inside">
-                    <li class="py-2"><b>Skill</b> - isikan mengenai kelebihan yang kamu miliki. <br><span class="font-semibold mt-4">Contoh</span>: menulis cerpen,
-                        menari, membuat
-                        desain grafis, dll. Kamu juga dapat menambahkan dokumentasi kelebihan kamu.</li>
-                    <li class="py-2"><b>Goal Detail</b> - isikan mengenai tujuan yang ingin kamu capai, baik jangka pendek
-                        maupun jangka
-                        panjang beserta hal yang perlu dipersiapkan. <br><span class="font-semibold mt-4">Contoh</span>: SNBP UM - Kedokteran (Belajar IPA).</li>
-                    <li class="py-2"><b>Kegiatan</b> - isikan dengan kegiatan yang kamu lakukan dalam mencapai goal detail
-                        kamu. <br><span class="font-semibold mt-4">Contoh</span>:
-                        mencari informasi bidang pekerjaan/prospek kerja jurusan (pada ruang kegiatan ini juga dapat
-                        diberikan dengan dokumentasi kegiatan kamu).</li>
-                </ol>
-            </div>
-            <div class="flex justify-end mt-4">
-                <button onclick="closeModal('guidanceModal')"
-                    class="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded">Close</button>
-            </div>
-        </div>
-    </div>
-
     <div class="min-h-screen bg-[#2460C2]  py-10">
         <div class="container mx-auto px-4">
+            <!-- Additional Content -->
+            <div class="w-full bg-white rounded-lg shadow-md p-8 mb-7">
+                <h1 class="text-lg sm:text-3xl font-semibold mb-5 text-center">Panduan Mengisi Jurnal</h1>
+                <p>Terdapat tiga template untuk merencanakan kariermu.</p>
+                <div class="grid grid-cols-2 gap-3 mt-8">
+                    <div class="bg-green-100 p-4 rounded-lg">
+                        <div class="flex items-center">
+                            <img src="{{ asset('assets/images/icon/1.png') }}" alt="Icon 1"
+                                class="h-12 w-12 object-contain rounded-full mr-4">
+                            <div>
+                                <p class="text-gray-700"><b>Skill</b> - isikan mengenai kelebihan yang kamu miliki.</p>
+                                <p class="text-gray-700 font-semibold mt-4">Contoh</p>
+                                <p class="text-gray-700">Menulis cerpen, menari, membuat desain grafis, dll. Kamu juga dapat
+                                    menambahkan dokumentasi kelebihan kamu.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-yellow-100 p-4 rounded-lg">
+                        <div class="flex items-center">
+                            <img src="{{ asset('assets/images/icon/2.png') }}" alt="Icon 2"
+                                class="h-12 w-12 object-contain rounded-full mr-4">
+                            <div>
+                                <p class="text-gray-700"><b>Goal Detail</b> - isikan mengenai tujuan yang ingin kamu capai,
+                                    baik jangka pendek maupun jangka panjang beserta hal yang perlu dipersiapkan.</p>
+                                <p class="text-gray-700 font-semibold mt-4">Contoh</p>
+                                <p class="text-gray-700">SNBP UM - Kedokteran (Belajar IPA).</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-purple-100 p-4 rounded-lg">
+                        <div class="flex items-center">
+                            <img src="{{ asset('assets/images/icon/3.png') }}" alt="Icon 3"
+                                class="h-12 w-12 object-contain rounded-full mr-4">
+                            <div>
+                                <p class="text-gray-700"><b>Kegiatan</b> - isikan dengan kegiatan yang kamu lakukan dalam
+                                    mencapai goal detail kamu.</p>
+                                <p class="text-gray-700 font-semibold mt-4">Contoh</p>
+                                <p class="text-gray-700">Mencari informasi bidang pekerjaan/prospek kerja jurusan. Pada
+                                    ruang kegiatan ini juga dapat diberikan dengan dokumentasi kegiatan kamu.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!-- Skill and Goal Detail Section -->
             <div class="flex flex-col md:flex-row gap-6 mb-10">
                 <!-- Skill Section -->
@@ -91,8 +109,10 @@
                         <thead class="sticky top-0">
                             <tr class="bg-purple-400 text-purple-900">
                                 <th class="w-1/12 p-2">No</th>
-                                <th class="w-3/12 p-2">Hari / Tanggal</th>
-                                <th class="w-6/12 p-2">Kegiatan</th>
+                                <th class="w-2/12 p-2">Hari / Tanggal</th>
+                                <th class="w-2/12 p-2">Skill</th>
+                                <th class="w-3/12 p-2">Goal Detail</th>
+                                <th class="w-2/12 p-2">Kegiatan</th>
                                 <th class="w-2/12 p-2">Action</th>
                             </tr>
                         </thead>
@@ -102,6 +122,8 @@
                                     class="py-2 {{ $todo->completed_at ? 'line-through' : '' }}">
                                     <td class="text-center p-2">{{ $loop->iteration }}</td>
                                     <td class="text-center p-2">{{ $todo->date }}</td>
+                                    <td class="text-center p-2">{{ $todo->skill->content ?? '-' }}</td>
+                                    <td class="text-center p-2">{{ $todo->goal->content ?? '-' }}</td>
                                     <td class="text-center p-2">{{ $todo->content }}</td>
                                     <td class="text-center p-2">
                                         @if (!$todo->completed_at)
@@ -143,9 +165,11 @@
 
     <!-- Goal Modal -->
     <div id="goalModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center hidden">
-        <div class="bg-white p-6 rounded-lg shadow-md w-full max-w-md transform scale-95 transition-transform duration-300">
+        <div
+            class="bg-white p-6 rounded-lg shadow-md w-full max-w-md transform scale-95 transition-transform duration-300">
             <h3 class="text-lg font-semibold mb-4">Add Goal</h3>
-            <input type="text" id="newGoal" class="border border-gray-300 p-2 rounded w-full mb-4" placeholder="Goal">
+            <input type="text" id="newGoal" class="border border-gray-300 p-2 rounded w-full mb-4"
+                placeholder="Goal">
             <div class="flex justify-end">
                 <button onclick="closeModal('goalModal')"
                     class="bg-red-500 hover:bg-red-600 text-white p-2 rounded mr-2">Cancel</button>
@@ -163,6 +187,20 @@
                 placeholder="Date">
             <input type="text" id="newTodoActivity" class="border border-gray-300 p-2 rounded w-full mb-4"
                 placeholder="Activity">
+            <label for="skillSelect" class="block text-sm font-medium text-gray-700">Pilih Skill</label>
+            <select id="skillSelect" class="border border-gray-300 p-2 rounded w-full mb-4">
+                <option value="">-- Pilih Skill --</option>
+                @foreach ($skills as $skill)
+                    <option value="{{ $skill->id }}">{{ $skill->content }}</option>
+                @endforeach
+            </select>
+            <label for="goalSelect" class="block text-sm font-medium text-gray-700">Pilih Goal Detail</label>
+            <select id="goalSelect" class="border border-gray-300 p-2 rounded w-full mb-4">
+                <option value="">-- Pilih Goal Detail --</option>
+                @foreach ($goals as $goal)
+                    <option value="{{ $goal->id }}">{{ $goal->content }}</option>
+                @endforeach
+            </select>
             <div class="flex justify-end">
                 <button onclick="closeModal('todoModal')"
                     class="bg-red-500 hover:bg-red-600 text-white p-2 rounded mr-2">Cancel</button>
@@ -176,6 +214,7 @@
     <div id="toast" class="fixed bottom-5 right-5 bg-gray-800 text-white px-4 py-2 rounded-lg shadow-lg hidden">
         <span id="toastMessage"></span>
     </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -232,9 +271,17 @@
                     closeModal('skillModal');
                     showToast('Skill added successfully!');
                     feather.replace();
+
+                    // Add the new skill to the select dropdown
+                    const skillSelect = document.getElementById('skillSelect');
+                    const option = document.createElement('option');
+                    option.value = data.id;
+                    option.textContent = skill;
+                    skillSelect.appendChild(option);
                 });
             }
         }
+
 
         function addGoal() {
             const goal = document.getElementById('newGoal').value;
@@ -248,33 +295,46 @@
                     li.classList.add('w-fit');
                     li.setAttribute('data-id', data.id);
                     li.innerHTML = `
-                        <div class="relative w-fit group">
-                            <span class="inline-flex items-center px-3 py-1 mr-2 text-sm font-medium leading-5 text-green-800 bg-green-100 rounded-full">
-                                ${goal}
-                            </span>
-                            <button class="absolute -top-2 -right-0 scale-0 transition-all ease-in-out group-hover:scale-100 rounded-full w-5 aspect-square bg-white flex items-center justify-center text-red-500 hover:text-red-700" onclick="removeEntry(this)">
-                                <i data-feather="x" class="w-3"></i>
-                            </button>
-                        </div>
-                    `;
+                            <div class="relative w-fit group">
+                                <span class="inline-flex items-center px-3 py-1 mr-2 text-sm font-medium leading-5 text-green-800 bg-green-100 rounded-full">
+                                    ${goal}
+                                </span>
+                                <button class="absolute -top-2 -right-0 scale-0 transition-all ease-in-out group-hover:scale-100 rounded-full w-5 aspect-square bg-white flex items-center justify-center text-red-500 hover:text-red-700" onclick="removeEntry(this)">
+                                    <i data-feather="x" class="w-3"></i>
+                                </button>
+                            </div>
+                        `;
                     document.getElementById('goalList').appendChild(li);
                     document.getElementById('newGoal').value = '';
                     closeModal('goalModal');
                     showToast('Goal added successfully!');
                     feather.replace();
+
+                    // Add the new goal to the select dropdown
+                    const goalSelect = document.getElementById('goalSelect');
+                    const option = document.createElement('option');
+                    option.value = data.id;
+                    option.textContent = goal;
+                    goalSelect.appendChild(option);
                 });
             }
         }
 
+
         function addTodo() {
             const date = document.getElementById('newTodoDate').value;
             const activity = document.getElementById('newTodoActivity').value;
+            const skillId = document.getElementById('skillSelect').value;
+            const goalId = document.getElementById('goalSelect').value;
+
             if (date && activity) {
                 $.post("{{ route('jurnal.store') }}", {
                     _token: '{{ csrf_token() }}',
                     type: 'todo',
                     content: activity,
-                    date: date
+                    date: date,
+                    skill_id: skillId,
+                    goal_id: goalId,
                 }, function(data) {
                     const row = document.createElement('tr');
                     row.setAttribute('data-id', data.id);
@@ -282,6 +342,8 @@
                     row.innerHTML = `
                         <td class="text-center p-2">${document.querySelectorAll('#todoList tr').length + 1}</td>
                         <td class="text-center p-2">${date}</td>
+                        <td class="text-center p-2">${document.querySelector('#skillSelect option:checked').text}</td>
+                        <td class="text-center p-2">${document.querySelector('#goalSelect option:checked').text}</td>
                         <td class="text-center p-2">${activity}</td>
                         <td class="text-center p-2">
                             <button class="text-green-500 hover:text-green-700 mr-2" onclick="markAsDone(this)">

@@ -17,19 +17,20 @@
                         <input type="email" id="email" name="email" required
                             class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                     </div>
-                    <div class="mb-6">
+                    <div class="mb-6 relative">
                         <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-                        <input type="password" id="password" name="password" required
-                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        <div class="relative">
+                            <input type="password" id="password" name="password" required
+                                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                            <i data-feather="eye" id="showPassword"
+                                class="absolute top-1/2 right-3 -translate-y-1/2 w-5 cursor-pointer"></i>
+                            <i data-feather="eye-off" id="hidePassword"
+                                class="absolute top-1/2 right-3 -translate-y-1/2 w-5 cursor-pointer"
+                                style="display: none;"></i>
+                        </div>
                     </div>
+
                     <div class="flex items-center justify-end mb-6">
-                        {{-- <div class="flex items-center">
-                            <input id="remember_me" name="remember_me" type="checkbox"
-                                class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
-                            <label for="remember_me" class="ml-2 block text-sm text-gray-900">
-                                Remember me
-                            </label>
-                        </div> --}}
                         <p class="text-sm">
                             Belum punya akun?
                             <a href="{{ route('register') }}" class="text-sm text-indigo-600 hover:text-indigo-500">
@@ -57,4 +58,28 @@
             </div>
         </div>
     </div>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script>
+        $(document).ready(function() {
+            // Initialize Feather icons
+            feather.replace();
+
+            // Toggle password visibility
+            $('#showPassword').on('click', function() {
+                $('#password').attr('type', 'text');
+                $('#showPassword').hide();
+                $('#hidePassword').show();
+                feather.replace(); // Update icons
+            });
+
+            $('#hidePassword').on('click', function() {
+                $('#password').attr('type', 'password');
+                $('#hidePassword').hide();
+                $('#showPassword').show();
+                feather.replace(); // Update icons
+            });
+        });
+    </script>
 @endsection

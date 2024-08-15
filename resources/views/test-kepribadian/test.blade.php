@@ -36,24 +36,28 @@
 
         <!-- Additional Content -->
         <div class="w-full max-w-4xl bg-white rounded-lg shadow-md p-8">
+            <h1 class="text-lg sm:text-3xl font-semibold mb-5 text-center">Pemberitahuan</h1>
             <div class="grid grid-cols-1 gap-3">
                 <div class="bg-green-100 p-4 rounded-lg">
                     <div class="flex items-center">
-                        <img src="{{ asset('assets/images/icon/1.png') }}" alt="Icon 1" class="h-12 w-12 object-contain rounded-full mr-4">
+                        <img src="{{ asset('assets/images/icon/1.png') }}" alt="Icon 1"
+                            class="h-12 w-12 object-contain rounded-full mr-4">
                         <p class="text-gray-700">Jadilah diri Anda sepenuhnya dan beri jawaban sejujurnya untuk mengetahui
                             tipe kepribadian Anda.</p>
                     </div>
                 </div>
                 <div class="bg-yellow-100 p-4 rounded-lg">
                     <div class="flex items-center">
-                        <img src="{{ asset('assets/images/icon/2.png') }}" alt="Icon 2" class="h-12 w-12 object-contain rounded-full mr-4">
+                        <img src="{{ asset('assets/images/icon/2.png') }}" alt="Icon 2"
+                            class="h-12 w-12 object-contain rounded-full mr-4">
                         <p class="text-gray-700">Pelajari cara tipe kepribadian Anda memengaruhi banyak aspek dalam hidup
                             Anda.</p>
                     </div>
                 </div>
                 <div class="bg-purple-100 p-4 rounded-lg">
                     <div class="flex items-center">
-                        <img src="{{ asset('assets/images/icon/3.png') }}" alt="Icon 3" class="h-12 w-12 object-contain rounded-full mr-4">
+                        <img src="{{ asset('assets/images/icon/3.png') }}" alt="Icon 3"
+                            class="h-12 w-12 object-contain rounded-full mr-4">
                         <p class="text-gray-700">Berkembanglah menjadi pribadi yang Anda inginkan dengan berbagai materi
                             premium opsional kami.</p>
                     </div>
@@ -61,8 +65,11 @@
             </div>
         </div>
 
+        <div class="w-full max-w-4xl bg-white rounded-lg shadow-md p-4 my-6">
+        </div>
+
         <!-- Question Section -->
-        <div class="w-full max-w-4xl bg-white rounded-lg shadow-md p-8 mt-10">
+        <div class="w-full max-w-4xl bg-white rounded-lg shadow-md p-8">
             <h2 class="text-xl font-semibold text-gray-700">Personality Test</h2>
             <form id="testForm" method="POST" action="{{ route('submit.personality.test') }}">
                 @csrf
@@ -143,7 +150,8 @@
             <div class="text-center">
                 <h3 class="text-lg leading-6 font-medium text-gray-900">Incomplete Answers</h3>
                 <div class="mt-2 px-7 py-3">
-                    <p class="text-sm text-gray-500">Please answer all the questions in this category before proceeding.</p>
+                    <p class="text-sm text-gray-500">Please answer all the questions in this category before proceeding.
+                    </p>
                 </div>
                 <div class="flex justify-center gap-4 px-4 py-3">
                     <button onclick="closeModal('warningModal')"
@@ -166,7 +174,7 @@
             // Initialize Lottie animation
             lottie.loadAnimation({
                 container: document.getElementById(
-                'lottieAnimation'), // the dom element that will contain the animation
+                    'lottieAnimation'), // the dom element that will contain the animation
                 renderer: 'svg',
                 loop: true,
                 autoplay: true,
