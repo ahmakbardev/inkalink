@@ -19,15 +19,15 @@
                     </svg>
                 </button>
                 <div class="text-center">
-                    <h3 class="text-lg leading-6 font-medium text-gray-900">Welcome to the Personality Test</h3>
+                    <h3 class="text-lg leading-6 font-medium text-gray-900">Selamat datang di Tes Kepribadian</h3>
                     <div class="mt-2 px-7 py-3">
-                        <p class="text-sm text-gray-500">Before you start, please read the instructions carefully. Click
-                            'Start' when you are ready.</p>
+                        <p class="text-sm text-gray-500">Sebelum memulai, harap baca petunjuknya dengan saksama. Klik
+                            'Mulai' jika Anda sudah siap.</p>
                     </div>
                     <div class="items-center px-4 py-3">
                         <button onclick="closeModal('welcomeModal')"
                             class="px-4 py-2 bg-primary-500 text-white text-base font-medium rounded-md shadow-sm hover:bg-primary-700 transition-all ease-in-out">
-                            Start Test
+                            Mulai Tes
                         </button>
                     </div>
                 </div>
@@ -36,30 +36,35 @@
 
         <!-- Additional Content -->
         <div class="w-full max-w-4xl bg-white rounded-lg shadow-md p-8">
-            <h1 class="text-lg sm:text-3xl font-semibold mb-5 text-center">Pemberitahuan</h1>
+            <h1 class="text-lg sm:text-3xl font-semibold mb-5 text-center">Petunjuk Pengisian Tes Kepribadian</h1>
             <div class="grid grid-cols-1 gap-3">
                 <div class="bg-green-100 p-4 rounded-lg">
                     <div class="flex items-center">
                         <img src="{{ asset('assets/images/icon/1.png') }}" alt="Icon 1"
                             class="h-12 w-12 object-contain rounded-full mr-4">
-                        <p class="text-gray-700">Jadilah diri Anda sepenuhnya dan beri jawaban sejujurnya untuk mengetahui
-                            tipe kepribadian Anda.</p>
+                        <p class="text-gray-700">Tes kepribadian merupakan tes yang dirancang berdasarkan teori John Holland
+                            yang berisikan mengenai soal-soal minat dan bakat dalam diri.</p>
                     </div>
                 </div>
                 <div class="bg-yellow-100 p-4 rounded-lg">
                     <div class="flex items-center">
                         <img src="{{ asset('assets/images/icon/2.png') }}" alt="Icon 2"
                             class="h-12 w-12 object-contain rounded-full mr-4">
-                        <p class="text-gray-700">Pelajari cara tipe kepribadian Anda memengaruhi banyak aspek dalam hidup
-                            Anda.</p>
+                        <p class="text-gray-700">Tes kepribadian ini dapat digunakan untuk melihat tipe kepribadian diri.</p>
                     </div>
                 </div>
                 <div class="bg-purple-100 p-4 rounded-lg">
                     <div class="flex items-center">
                         <img src="{{ asset('assets/images/icon/3.png') }}" alt="Icon 3"
                             class="h-12 w-12 object-contain rounded-full mr-4">
-                        <p class="text-gray-700">Berkembanglah menjadi pribadi yang Anda inginkan dengan berbagai materi
-                            premium opsional kami.</p>
+                        <p class="text-gray-700">Kerjakanlah soal-soal dibawah ini dengan sejujurnya sesuai dengan kondisi diri anda saat ini untuk mengetahui tipe kepribadianmu.</p>
+                    </div>
+                </div>
+                <div class="bg-red-100 p-4 rounded-lg">
+                    <div class="flex items-center">
+                        <img src="{{ asset('assets/images/icon/4.png') }}" alt="Icon 3"
+                            class="h-12 w-12 object-contain rounded-full mr-4">
+                        <p class="text-gray-700">Jawablah pertanyaan dengan opsi jawaban YA jika sesuai dengan kondisi diri anda saat ini dan jawab TIDAK jika tidak sesuai dengan kondisi anda saat ini.</p>
                     </div>
                 </div>
             </div>
@@ -70,7 +75,7 @@
 
         <!-- Question Section -->
         <div class="w-full max-w-4xl bg-white rounded-lg shadow-md p-8">
-            <h2 class="text-xl font-semibold text-gray-700">Personality Test</h2>
+            <h2 class="text-xl font-semibold text-gray-700">Tes Kepribadian</h2>
             <form id="testForm" method="POST" action="{{ route('submit.personality.test') }}">
                 @csrf
                 @foreach ($categories as $category)

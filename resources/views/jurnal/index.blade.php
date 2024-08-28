@@ -13,7 +13,7 @@
                             <img src="{{ asset('assets/images/icon/1.png') }}" alt="Icon 1"
                                 class="h-12 w-12 object-contain rounded-full mr-4">
                             <div>
-                                <p class="text-gray-700"><b>Skill</b> - isikan mengenai kelebihan yang kamu miliki.</p>
+                                <p class="text-gray-700"><b>Keahlian</b> - isikan mengenai kelebihan yang kamu miliki.</p>
                                 <p class="text-gray-700 font-semibold mt-4">Contoh</p>
                                 <p class="text-gray-700">Menulis cerpen, menari, membuat desain grafis, dll. Kamu juga dapat
                                     menambahkan dokumentasi kelebihan kamu.</p>
@@ -25,7 +25,8 @@
                             <img src="{{ asset('assets/images/icon/2.png') }}" alt="Icon 2"
                                 class="h-12 w-12 object-contain rounded-full mr-4">
                             <div>
-                                <p class="text-gray-700"><b>Goal Detail</b> - isikan mengenai tujuan yang ingin kamu capai,
+                                <p class="text-gray-700"><b>Rincian Tujuan</b> - isikan mengenai tujuan yang ingin kamu
+                                    capai,
                                     baik jangka pendek maupun jangka panjang beserta hal yang perlu dipersiapkan.</p>
                                 <p class="text-gray-700 font-semibold mt-4">Contoh</p>
                                 <p class="text-gray-700">SNBP UM - Kedokteran (Belajar IPA).</p>
@@ -51,7 +52,7 @@
             <div class="flex flex-col md:flex-row gap-6 mb-10">
                 <!-- Skill Section -->
                 <div class="w-full md:w-1/2 bg-gradient-to-r from-blue-200 to-blue-300 p-6 rounded-lg shadow-lg relative">
-                    <h3 class="text-xl font-semibold text-blue-900">Skill</h3>
+                    <h3 class="text-xl font-semibold text-blue-900">Keahlian</h3>
                     <ul id="skillList" class="mt-4 flex items-center">
                         @foreach ($skills as $skill)
                             <li data-id="{{ $skill->id }}" class="w-fit">
@@ -76,7 +77,7 @@
                 </div>
                 <!-- Goal Detail Section -->
                 <div class="w-full md:w-1/2 bg-gradient-to-r from-green-200 to-green-300 p-6 rounded-lg shadow-lg relative">
-                    <h3 class="text-xl font-semibold text-green-900">Goal Detail</h3>
+                    <h3 class="text-xl font-semibold text-green-900">Rincian Tujuan</h3>
                     <ul id="goalList" class="mt-4 flex items-center">
                         @foreach ($goals as $goal)
                             <li data-id="{{ $goal->id }}">
@@ -110,10 +111,10 @@
                             <tr class="bg-purple-400 text-purple-900">
                                 <th class="w-1/12 p-2">No</th>
                                 <th class="w-2/12 p-2">Hari / Tanggal</th>
-                                <th class="w-2/12 p-2">Skill</th>
-                                <th class="w-3/12 p-2">Goal Detail</th>
+                                <th class="w-2/12 p-2">Keahlian</th>
+                                <th class="w-3/12 p-2">Rincian Tujuan</th>
                                 <th class="w-2/12 p-2">Kegiatan</th>
-                                <th class="w-2/12 p-2">Action</th>
+                                <th class="w-2/12 p-2">Aksi</th>
                             </tr>
                         </thead>
                         <tbody id="todoList" class="text-purple-800">
@@ -181,33 +182,44 @@
     <!-- Todo Modal -->
     <div id="todoModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center hidden">
         <div
-            class="bg-white p-6 rounded-lg shadow-md w-full max-w-md transform scale-95 transition-transform duration-300">
-            <h3 class="text-lg font-semibold mb-4">Add Todo</h3>
+            class="bg-white p-6 rounded-lg shadow-md w-full max-w-lg transform scale-95 transition-transform duration-300">
+            <h3 class="text-lg font-semibold mb-4">Tambah Kegiatan</h3>
+
+            <!-- Tanggal Input -->
+            <label for="newTodoDate" class="block text-sm font-medium text-gray-700">Hari / Tanggal</label>
             <input type="date" id="newTodoDate" class="border border-gray-300 p-2 rounded w-full mb-4"
-                placeholder="Date">
-            <input type="text" id="newTodoActivity" class="border border-gray-300 p-2 rounded w-full mb-4"
-                placeholder="Activity">
-            <label for="skillSelect" class="block text-sm font-medium text-gray-700">Pilih Skill</label>
+                placeholder="Tanggal">
+
+            <!-- Activity Input as Textarea -->
+            <label for="newTodoActivity" class="block text-sm font-medium text-gray-700">Kegiatan</label>
+            <textarea id="newTodoActivity" class="border border-gray-300 p-2 rounded w-full mb-4" placeholder="Isi kegiatan"></textarea>
+
+            <!-- Skill Select -->
+            <label for="skillSelect" class="block text-sm font-medium text-gray-700">Pilih Keahlian</label>
             <select id="skillSelect" class="border border-gray-300 p-2 rounded w-full mb-4">
-                <option value="">-- Pilih Skill --</option>
+                <option value="">-- Pilih Keahlian --</option>
                 @foreach ($skills as $skill)
                     <option value="{{ $skill->id }}">{{ $skill->content }}</option>
                 @endforeach
             </select>
-            <label for="goalSelect" class="block text-sm font-medium text-gray-700">Pilih Goal Detail</label>
+
+            <!-- Goal Select -->
+            <label for="goalSelect" class="block text-sm font-medium text-gray-700">Pilih Tujuan</label>
             <select id="goalSelect" class="border border-gray-300 p-2 rounded w-full mb-4">
-                <option value="">-- Pilih Goal Detail --</option>
+                <option value="">-- Pilih Tujuan --</option>
                 @foreach ($goals as $goal)
                     <option value="{{ $goal->id }}">{{ $goal->content }}</option>
                 @endforeach
             </select>
+
             <div class="flex justify-end">
                 <button onclick="closeModal('todoModal')"
-                    class="bg-red-500 hover:bg-red-600 text-white p-2 rounded mr-2">Cancel</button>
-                <button onclick="addTodo()" class="bg-green-500 hover:bg-green-600 text-white p-2 rounded">Add</button>
+                    class="bg-red-500 hover:bg-red-600 text-white p-2 rounded mr-2">Batal</button>
+                <button onclick="addTodo()" class="bg-green-500 hover:bg-green-600 text-white p-2 rounded">Tambah</button>
             </div>
         </div>
     </div>
+
 
 
     <!-- Toast Notification -->

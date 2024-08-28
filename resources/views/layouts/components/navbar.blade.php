@@ -15,7 +15,8 @@
 
     <ul class="hidden sm:flex gap-3 w-full justify-center items-center">
         <li class="hover:text-slate-300 cursor-pointer transition-all ease-in-out"><a href="/">Beranda</a></li>
-        <li class="hover:text-slate-300 cursor-pointer transition-all ease-in-out"><a href="{{ route('tentang') }}">Tentang</a></li>
+        <li class="hover:text-slate-300 cursor-pointer transition-all ease-in-out"><a
+                href="{{ route('tentang') }}">Tentang</a></li>
     </ul>
 
     <!-- Search Bar -->
@@ -83,6 +84,23 @@
     </ul>
 </div>
 
+<!-- Modal Structure -->
+<div id="SearchUnivModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50"
+    style="opacity: 0; transition: opacity 0.5s ease-in-out;">
+    <div class="relative top-1/2 -translate-y-1/2 mx-auto p-5 border w-96 sm:w-1/2 shadow-lg rounded-md bg-white">
+        <button onclick="closeModal('SearchUnivModal')"
+            class="absolute top-3 right-3 text-gray-500 hover:text-gray-700">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+        <div id="UnivmodalContent" class="text-center">
+            <!-- Dynamic content will be loaded here -->
+        </div>
+    </div>
+</div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
     integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -92,7 +110,7 @@
             var query = $(this).val();
             if (query.length > 2) { // Minimum 3 characters to start searching
                 $.ajax({
-                    url: '{{ route('search.univ') }}', // Update the route to match your search endpoint
+                    url: '{{ route('search.univ') }}',
                     method: 'GET',
                     data: {
                         query: query
@@ -102,15 +120,17 @@
                         if (response.length > 0) {
                             response.forEach(function(item) {
                                 $('#searchResults').append(`
-                                    <div class="p-2 hover:bg-gray-100 cursor-pointer">
-                                        <a href="${item.url_pendaftaran}" target="_blank" class="block">
-                                            <strong>${item.university}</strong> - ${item.major}<br>
-                                            <span class="text-sm text-gray-500">Nilai: ${item.score}</span><br>
-                                            <a href="${item.url_passinggrade}" target="_blank" class="text-blue-500">Passing Grade</a> | 
-                                            <a href="${item.url_biaya}" target="_blank" class="text-blue-500">Biaya Pendidikan</a>
-                                        </a>
-                                    </div>
-                                `);
+                                <div class="p-2 hover:bg-gray-100 cursor-pointer" data-item='${JSON.stringify(item)}'>
+                                    <strong>${item.university}</strong> - ${item.major}<br>
+                                    <span class="text-sm text-gray-500">Nilai: ${item.score}</span>
+                                </div>
+                            `);
+                            });
+
+                            // Adding click event to each result item
+                            $('#searchResults div').on('click', function() {
+                                const item = $(this).data('item');
+                                showDetails(item);
                             });
                         } else {
                             $('#searchResults').html(
@@ -140,13 +160,13 @@
                 setTimeout(() => {
                     menu.style.transform = 'translateY(0)';
                     menu.style.opacity = '1';
-                }, 10); // Delay for CSS transition to kick in
+                }, 10);
             } else {
                 menu.style.transform = 'translateY(-10px)';
                 menu.style.opacity = '0';
                 setTimeout(() => {
                     menu.classList.add('hidden');
-                }, 300); // Match the duration of the transition
+                }, 300);
             }
         });
 
@@ -160,6 +180,36 @@
             }
         });
     });
+
+    function showDetails(item) {
+        $('#UnivmodalContent').html(`
+        <h3 class="text-lg leading-6 font-medium text-gray-900">${item.university} - ${item.major}</h3>
+        <img src="${item.image}" alt="${item.university}" class="w-full h-auto mt-4 mb-4">
+        <div class="mt-2">
+            <p class="text-sm text-gray-500">Nilai: ${item.score}</p>
+            <p class="text-sm text-gray-500">Passing Grade: <a href="${item.url_passinggrade}" target="_blank" class="text-blue-500">${item.url_passinggrade}</a></p>
+            <p class="text-sm text-gray-500">Biaya Pendidikan: <a href="${item.url_biaya}" target="_blank" class="text-blue-500">${item.url_biaya}</a></p>
+            <p class="text-sm text-gray-500">Link Pendaftaran: <a href="${item.url_pendaftaran}" target="_blank" class="text-blue-500">${item.url_pendaftaran}</a></p>
+        </div>
+    `);
+        openModal('SearchUnivModal');
+    }
+
+    function openModal(modalId) {
+        const modal = document.getElementById(modalId);
+        modal.style.display = 'block';
+        setTimeout(() => {
+            modal.style.opacity = 1;
+        }, 10);
+    }
+
+    function closeModal(modalId) {
+        const modal = document.getElementById(modalId);
+        modal.style.opacity = 0;
+        setTimeout(() => {
+            modal.style.display = 'none';
+        }, 300);
+    }
 </script>
 
 <style>
