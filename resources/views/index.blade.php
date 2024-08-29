@@ -102,16 +102,12 @@
         <div class="mt-10 w-full">
             <h2 class="text-xl font-bold">Hubungi Kami</h2>
             <div class="flex items-center gap-4 mt-4">
-                <i data-feather="mail" class="w-6 h-6"></i>
-                <p>email@example.com</p>
-            </div>
-            <div class="flex items-center gap-4 mt-2">
-                <i data-feather="phone" class="w-6 h-6"></i>
-                <p>+62 123 4567 8901</p>
+                <img src="{{ asset('assets/images/icon/telegram.svg') }}" class="w-6 h-6" alt="">
+                <p>@AlyaMeliyaa</p>
             </div>
             <div class="flex items-center gap-4 mt-2">
                 <i data-feather="map-pin" class="w-6 h-6"></i>
-                <p>Jalan Pintar No.123, Jakarta, Indonesia</p>
+                <p> Jl. Semarang No. 5, Kota Malang</p>
             </div>
         </div>
     </div>
@@ -180,7 +176,8 @@
                 class="absolute top-3 right-3 group bg-transparent border-none">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round, stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                    </path>
                 </svg>
             </button>
             <div class="mt-3 text-center">

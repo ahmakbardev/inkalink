@@ -8,9 +8,9 @@
     <title>inkalink</title>
     <link rel="shortcut icon" href="{{ asset('assets/images/logo/logo-square.png') }}" type="image/x-icon">
     <!-- Append version number to CSS file name -->
-    <link rel="stylesheet" href="{{ asset('css/app.css?v=1.06') }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css?v=1.07') }}">
     <!-- Add cache-control headers for CSS and JavaScript files -->
-    <link rel="preload" href="{{ asset('css/app.css?v=1.06') }}" as="style" crossorigin="anonymous" />
+    <link rel="preload" href="{{ asset('css/app.css?v=1.07') }}" as="style" crossorigin="anonymous" />
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}

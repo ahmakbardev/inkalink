@@ -8,8 +8,9 @@
                 <img src="{{ asset('assets/images/logo/logo-square.png') }}" alt="INKALINK Logo"
                     class="w-32 h-32 object-contain">
             </div>
-            <p class="text-lg text-gray-700 mb-2">Inkalink merupakan aplikasi perencanaan karir yang dirancang untuk
-                meningkatkan perencanaan karir individu.</p>
+            <p class="text-lg text-gray-700 mb-2">Inkalink merupakan website yang dirancang khusus untuk siswa sebagai alat
+                bantu pengambilan keputusan studi lanjut.
+            </p>
             <p class="text-lg text-gray-700">Aplikasi ini dibuat oleh mahasiswa Universitas Negeri Malang dengan bantuan ahli
                 media.</p>
         </div>
