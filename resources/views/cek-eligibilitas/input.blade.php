@@ -19,6 +19,10 @@
                             class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
                             Tambahkan Semester
                         </button>
+                        <button type="button" id="addSubjectButton"
+                            class="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded mt-2">
+                            Tambahkan Mata Pelajaran
+                        </button>
                         <button type="submit"
                             class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mt-4">
                             Cek Eligibilitas
@@ -74,45 +78,150 @@
 
     <script>
         $(document).ready(function() {
-            // Open modal on page load
-            openModal();
+            openModal(); // Open modal on page load
 
             let semesterCount = 0;
+            let subjects = [];
 
             function addSemester() {
                 semesterCount++;
+                const cancelButton = semesterCount > 1 ?
+                    `<button type="button" class="remove-semester bg-red-500 text-white px-4 py-1 rounded mb-3" data-semester-id="${semesterCount}">Cancel Semester</button>` :
+                    ''; // Tidak menampilkan tombol cancel untuk semester 1
+
                 const semesterHtml = `
-                    <div class="semester-section mb-6 p-4 border rounded bg-gray-50">
+                    <div class="semester-section mb-6 p-4 border rounded bg-gray-50" id="semester-${semesterCount}">
                         <h4 class="text-lg font-semibold mb-3">Semester ${semesterCount}</h4>
-                        <div class="grid grid-cols-3 gap-4">
-                            ${['Bahasa Indonesia', 'Matematika', 'Bahasa Inggris', 'Sejarah Indonesia', 'Seni Budaya', 'Kimia', 'Biologi', 'Fisika', 'PAI', 'Prakarya dan KWU'].map(subject => `
-                                            <div>
-                                                <label class="block text-sm font-medium text-gray-700">${subject}</label>
-                                                <input type="number" name="grades[${semesterCount}][${subject}]" class="grade-input mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="Nilai" oninput="validateInput(this)">
-                                            </div>
-                                        `).join('')}
+                        ${cancelButton}
+                        <div class="grid grid-cols-3 gap-4" id="subjectsContainer-${semesterCount}">
+                            ${generateSubjectInputs(semesterCount)}
                         </div>
                     </div>
                 `;
                 $('#semestersContainer').append(semesterHtml);
-                attachInputListeners();
+                calculateAverage();
             }
 
-            function attachInputListeners() {
-                $('.grade-input').on('input change', function() {
-                    validateInput(this);
-                    calculateAverage();
-                });
+
+            // Generate subject inputs
+            function generateSubjectInputs(semesterId) {
+                if (subjects.length === 0) {
+                    return '<p class="text-sm text-gray-500 col-span-3">Belum ada mata pelajaran yang ditambahkan. Silakan tambahkan mata pelajaran.</p>';
+                }
+                return subjects.map((subject, index) => `
+            <div id="subject-${semesterId}-${index}" class="relative">
+                <label class="block text-sm font-medium text-gray-700">${subject}</label>
+                <input type="number" name="grades[${semesterId}][${subject}]" class="grade-input mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm" placeholder="Nilai" oninput="validateInput(this)">
+                <button type="button" class="edit-subject absolute top-0 right-16 bg-yellow-500 text-white px-2 py-1 rounded" data-semester-id="${semesterId}" data-subject-index="${index}">Edit</button>
+                <button type="button" class="remove-subject absolute top-0 right-0 bg-red-500 text-white px-2 py-1 rounded" data-semester-id="${semesterId}" data-subject-index="${index}">Hapus</button>
+            </div>
+        `).join('');
             }
 
-            function validateInput(input) {
-                if (parseInt(input.value) > 100) {
-                    input.value = 100; // Corrects the value if it's over 100
-                } else if (parseInt(input.value) < 0) {
-                    input.value = 0; // Prevents negative numbers
+            // Add custom subject to all semesters
+            function addCustomSubject() {
+                const newSubject = prompt("Masukkan nama mata pelajaran baru:");
+                if (newSubject) {
+                    subjects.push(newSubject); // Tambahkan mata pelajaran baru ke array
+                    // Hanya tambahkan mata pelajaran baru ke setiap semester, tanpa menggandakan
+                    $('.semester-section .grid').each(function(index, semester) {
+                        const semesterId = index + 1;
+                        $(semester).append(`
+                    <div id="subject-${semesterId}-${subjects.length - 1}" class="relative">
+                        <label class="block text-sm font-medium text-gray-700">${newSubject}</label>
+                        <input type="number" name="grades[${semesterId}][${newSubject}]" class="grade-input mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm" placeholder="Nilai" oninput="validateInput(this)">
+                        <button type="button" class="edit-subject absolute top-0 right-16 bg-yellow-500 text-white px-2 py-1 rounded" data-semester-id="${semesterId}" data-subject-index="${subjects.length - 1}">Edit</button>
+                        <button type="button" class="remove-subject absolute top-0 right-0 bg-red-500 text-white px-2 py-1 rounded" data-semester-id="${semesterId}" data-subject-index="${subjects.length - 1}">Hapus</button>
+                    </div>
+                `);
+                    });
                 }
             }
 
+            // Event delegation for dynamically created grade inputs
+            $(document).on('input', '.grade-input', function() {
+                validateInput(this);
+                calculateAverage();
+            });
+
+            $(document).on('click', '.remove-semester', function() {
+                const semesterId = $(this).data('semester-id');
+                $(`#semester-${semesterId}`).remove();
+
+                // Reorder remaining semesters
+                reorderSemesters();
+                calculateAverage();
+            });
+
+
+            function reorderSemesters() {
+                // Mengambil semua elemen semester yang tersisa
+                let remainingSemesters = $('.semester-section');
+
+                // Reset semesterCount untuk mengatur ulang dari awal
+                semesterCount = 0;
+
+                // Loop melalui semua semester yang ada dan set ulang ID dan teks
+                remainingSemesters.each(function(index) {
+                    semesterCount = index + 1;
+                    const semesterElement = $(this);
+
+                    // Set ulang ID dan label semester
+                    semesterElement.attr('id', `semester-${semesterCount}`);
+                    semesterElement.find('h4').text(`Semester ${semesterCount}`);
+
+                    // Update tombol Cancel Semester
+                    const cancelButton = semesterCount > 1 ?
+                        `<button type="button" class="remove-semester bg-red-500 text-white px-4 py-1 rounded mb-3" data-semester-id="${semesterCount}">Cancel Semester</button>` :
+                        ''; // Tidak menampilkan tombol cancel untuk semester 1
+
+                    semesterElement.find('.remove-semester').remove(); // Hapus tombol yang lama
+                    if (cancelButton) {
+                        semesterElement.prepend(cancelButton); // Tambahkan tombol cancel baru
+                    }
+
+                    // Update semua elemen subject yang ada dengan semester ID baru
+                    semesterElement.find('.grade-input').each(function() {
+                        const subjectIndex = $(this).closest('.relative').attr('id').split('-')[
+                            2]; // Ambil index subject
+                        $(this).attr('name', `grades[${semesterCount}][${subjects[subjectIndex]}]`);
+                    });
+                });
+            }
+
+
+            // Event delegation for editing subject
+            $(document).on('click', '.edit-subject', function() {
+                const semesterId = $(this).data('semester-id');
+                const subjectIndex = $(this).data('subject-index');
+                const newSubjectName = prompt("Edit nama mata pelajaran:", subjects[subjectIndex]);
+                if (newSubjectName) {
+                    subjects[subjectIndex] = newSubjectName;
+                    $(`#subject-${semesterId}-${subjectIndex} label`).text(newSubjectName);
+                    $(`#subject-${semesterId}-${subjectIndex} input`).attr('name',
+                        `grades[${semesterId}][${newSubjectName}]`);
+                }
+            });
+
+            // Event delegation for removing subject
+            $(document).on('click', '.remove-subject', function() {
+                const semesterId = $(this).data('semester-id');
+                const subjectIndex = $(this).data('subject-index');
+                subjects.splice(subjectIndex, 1); // Remove the subject from the array
+                $(`#subject-${semesterId}-${subjectIndex}`).remove(); // Remove the subject element
+                calculateAverage();
+            });
+
+            // Validate input
+            function validateInput(input) {
+                if (parseInt(input.value) > 100) {
+                    input.value = 100;
+                } else if (parseInt(input.value) < 0) {
+                    input.value = 0;
+                }
+            }
+
+            // Calculate average
             function calculateAverage() {
                 let total = 0;
                 let count = 0;
@@ -127,8 +236,21 @@
                 $('#overallAverage').text(average);
             }
 
+            // Attach listeners for input
+            function attachInputListeners() {
+                $('.grade-input').on('input change', function() {
+                    validateInput(this);
+                    calculateAverage();
+                });
+            }
+
+            // Initialize with one semester
             $('#addSemesterButton').click(function() {
                 addSemester();
+            });
+
+            $('#addSubjectButton').click(function() {
+                addCustomSubject();
             });
 
             // Initially load one semester
@@ -140,7 +262,7 @@
                 renderer: 'svg',
                 loop: true,
                 autoplay: true,
-                path: '{{ asset('assets/lottie/school.json') }}' // Change to your Lottie JSON file path
+                path: '{{ asset('assets/lottie/school.json') }}'
             });
         });
 
